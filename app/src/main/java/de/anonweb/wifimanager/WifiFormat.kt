@@ -10,7 +10,9 @@ fun unquoteSsid(raw: String?): String? {
 }
 
 fun unredactedBssid(raw: String?): String? {
-    if (raw == null || raw == "02:00:00:00:00:00") return null
+    // A redacted BSSID (WiFiInfo.DEFAULT_MAC_ADDRESS) is returned in some cases (e.g. missing permissions)
+    val redactedBssid = "02:00:00:00:00:00"
+    if (raw == null || raw == redactedBssid) return null
     return raw
 }
 
