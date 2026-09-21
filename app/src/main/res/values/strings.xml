@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">WiFiManager</string>
+
+    <string name="title_wifi">Wi-Fi</string>
+
+    <string name="label_quality">Quality</string>
+    <string name="label_signal_strength">Signal strength</string>
+    <string name="value_dbm">%1$d dBm</string>
+    <string name="label_ssid">SSID</string>
+    <string name="label_bssid">BSSID</string>
+    <string name="label_security">Security</string>
+    <string name="label_hidden_network">Hidden network</string>
+    <string name="value_yes">Yes</string>
+
+    <string name="banner_permission_permanently_denied">Location permission is needed to show the network name.</string>
+    <string name="banner_permission_needed">Grant location permission to see the network name.</string>
+    <string name="banner_location_disabled">Turn on device location to see the network name.</string>
+    <string name="banner_wifi_off">Wi-Fi is off.</string>
+    <string name="banner_not_connected">Not connected to a network.</string>
+    <string name="action_open_settings">Open settings</string>
+    <string name="action_grant">Grant</string>
+
+    <string name="security_open">Open</string>
+    <string name="security_wep">WEP</string>
+    <string name="security_wpa_psk">WPA/WPA2-Personal (PSK)</string>
+    <string name="security_wpa_eap">WPA/WPA2-Enterprise (EAP)</string>
+    <string name="security_wpa3_sae">WPA3-Personal (SAE)</string>
+    <string name="security_wpa3_enterprise_192">WPA3-Enterprise 192-bit</string>
+    <string name="security_owe">Enhanced Open (OWE)</string>
+    <string name="security_wapi_psk">WAPI-PSK</string>
+    <string name="security_wapi_cert">WAPI-Certificate</string>
+    <string name="security_wpa3_enterprise">WPA3-Enterprise</string>
+    <string name="security_osen">OSEN</string>
+    <string name="security_passpoint_r1_r2">Passpoint R1/R2</string>
+    <string name="security_passpoint_r3">Passpoint R3</string>
+    <string name="security_dpp">DPP (Easy Connect)</string>
+    <string name="unknown">Unknown</string>
+
+    <string name="signal_excellent">Excellent</string>
+    <string name="signal_good">Good</string>
+    <string name="signal_fair">Fair</string>
+    <string name="signal_weak">Weak</string>
+</resources>
