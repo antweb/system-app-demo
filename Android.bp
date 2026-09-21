@@ -1,0 +1,10 @@
+android_app_import {
+    name: "WiFiManager",
+    apk: "app-debug.apk",
+    presigned: true,
+    preprocessed: true,
+    dex_preopt: {
+        enabled: false,
+    },
+}
+
