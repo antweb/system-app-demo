@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<exceptions>
+    <exception package="de.anonweb.wifimanager">
+        <permission
+            name="android.permission.ACCESS_FINE_LOCATION"
+            fixed="true"
+        />
+        <permission
+            name="android.permission.ACCESS_COARSE_LOCATION"
+            fixed="true"
+        />
+    </exception>
+</exceptions>
+
+
