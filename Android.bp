@@ -1,11 +1,23 @@
-android_app_import {
+android_app {
     name: "WiFiManager",
-    apk: "app-debug.apk",
-    presigned: true,
-    preprocessed: true,
-    dex_preopt: {
+    srcs: ["app/src/main/java/**/*.kt"],
+    resource_dirs: ["app/src/main/res"],
+    manifest: "app/src/main/AndroidManifest.xml",
+    platform_apis: true,
+    optimize: {
         enabled: false,
     },
+    static_libs: [
+        "androidx.core_core-ktx",
+        "androidx.lifecycle_lifecycle-runtime-ktx",
+        "androidx.lifecycle_lifecycle-runtime-compose",
+        "androidx.lifecycle_lifecycle-viewmodel-compose",
+        "androidx.activity_activity-compose",
+        "androidx.compose.runtime_runtime",
+        "androidx.compose.ui_ui",
+        "androidx.compose.ui_ui-graphics",
+        "androidx.compose.material3_material3",
+    ],
     required: ["default-permissions-wifimanager.xml"],
 }
 
@@ -16,3 +28,16 @@ prebuilt_etc {
     filename_from_src: true,
 }
 
+
+// Pre-built alternative
+
+// android_app_import {
+//     name: "WiFiManager",
+//     apk: "app-debug.apk",
+//     presigned: true,
+//     preprocessed: true,
+//     dex_preopt: {
+//         enabled: false,
+//     },
+//     required: ["default-permissions-wifimanager.xml"],
+// }
