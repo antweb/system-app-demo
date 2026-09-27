@@ -3,6 +3,7 @@
 
     <string name="title_wifi">Wi-Fi</string>
 
+    <string name="label_connection">Connection</string>
     <string name="label_quality">Quality</string>
     <string name="label_signal_strength">Signal strength</string>
     <string name="value_dbm">%1$d dBm</string>
@@ -12,6 +13,13 @@
     <string name="label_security">Security</string>
     <string name="label_hidden_network">Hidden network</string>
     <string name="value_yes">Yes</string>
+    <string name="value_no">No</string>
+
+    <string name="label_adapter">Adapter</string>
+    <string name="label_hotspot_supported">Portable hotspot</string>
+    <string name="label_wifi_scanner">Wi-Fi scanner</string>
+    <string name="label_mac_randomization">Connected MAC randomization</string>
+    <string name="label_country_code">Country code</string>
 
     <string name="banner_permission_permanently_denied">Location permission is needed to show the network name.</string>
     <string name="banner_permission_needed">Grant location permission to see the network name.</string>

@@ -27,15 +27,16 @@ data class WifiStatus(
     val signalLevel: Int,
     val visibleNetworkCount: Int?,
     val maxSignalLevel: Int,
+    val hotspotSupported: Boolean,
+    val wifiScannerSupported: Boolean,
+    val macRandomizationSupported: Boolean,
+    val countryCode: String?,
 )
 
 class WifiStatusSource(private val context: Context) {
 
     private val TAG = "WifiStatusSource"
 
-    @RequiresPermission(
-        allOf = [Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE]
-    )
     fun statusFlow(): Flow<WifiStatus> = callbackFlow {
         val connectivityManager = context.getSystemService(ConnectivityManager::class.java)
         val wifiManager = context.getSystemService(WifiManager::class.java)
@@ -52,6 +53,34 @@ class WifiStatusSource(private val context: Context) {
             null
         }
 
+        val hotspotSupported = try {
+            wifiManager.isPortableHotspotSupported
+        } catch (e: Throwable) {
+            Log.e("WifiStatusSource", "Failed to call isPortableHotspotSupported ${e.message}")
+            false
+        }
+
+        val wifiScannerSupported = try {
+            wifiManager.isWifiScannerSupported
+        } catch (e: Throwable) {
+            Log.e("WifiStatusSource", "Failed to call isWifiScannerSupported: ${e.message}")
+            false
+        }
+
+        val macRandomizationSupported = try {
+            wifiManager.isConnectedMacRandomizationSupported
+        } catch (e: Throwable) {
+            Log.e("WifiStatusSource", "Failed to call isConnectedMacRandomizationSupported: ${e.message}")
+            false
+        }
+
+        val countryCode = try {
+            wifiManager.countryCode
+        } catch (e: Throwable) {
+            Log.e("WifiStatusSource", "Failed to call isConnectedMacRandomizationSupported: ${e.message}")
+            null
+        }
+
         val snapshot = Snapshot()
 
         fun push() {
@@ -64,6 +93,10 @@ class WifiStatusSource(private val context: Context) {
                     signalLevel = info?.let { wifiManager.calculateSignalLevel(it.rssi) } ?: 0,
                     visibleNetworkCount = visibleNetworkCount,
                     maxSignalLevel = wifiManager.maxSignalLevel,
+                    hotspotSupported = hotspotSupported,
+                    wifiScannerSupported = wifiScannerSupported,
+                    macRandomizationSupported = macRandomizationSupported,
+                    countryCode = countryCode
                 )
             )
         }

@@ -45,3 +45,6 @@ fun signalQualityLabelRes(level: Int, maxLevel: Int): Int {
         else -> R.string.signal_weak
     }
 }
+
+@StringRes
+fun yesNoRes(value: Boolean): Int = if (value) R.string.value_yes else R.string.value_no

@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -99,6 +100,7 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
                     Card(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
                         val yes = stringResource(R.string.value_yes)
                         Column {
+                            CardHeader(stringResource(R.string.label_connection))
                             InfoRow(stringResource(R.string.label_quality), stringResource(connection.signalQualityRes))
                             InfoRow(
                                 stringResource(R.string.label_signal_strength),
@@ -113,6 +115,30 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
                             InfoRow(stringResource(R.string.label_bssid), connection.bssid)
                             InfoRow(stringResource(R.string.label_security), stringResource(connection.securityRes))
                             InfoRow(stringResource(R.string.label_hidden_network), if (connection.hiddenSsid) yes else null)
+                        }
+                    }
+                }
+            }
+
+            val adapter = state.adapter
+            if (adapter != null) {
+                item {
+                    Card(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+                        Column {
+                            CardHeader(stringResource(R.string.label_adapter))
+                            InfoRow(
+                                stringResource(R.string.label_hotspot_supported),
+                                stringResource(adapter.hotspotSupportedRes),
+                            )
+                            InfoRow(
+                                stringResource(R.string.label_wifi_scanner),
+                                stringResource(adapter.wifiScannerSupportedRes),
+                            )
+                            InfoRow(
+                                stringResource(R.string.label_mac_randomization),
+                                stringResource(adapter.macRandomizationSupportedRes),
+                            )
+                            InfoRow(stringResource(R.string.label_country_code), adapter.countryCode)
                         }
                     }
                 }
@@ -154,6 +180,15 @@ private fun Banner(
             }
         }
     }
+}
+
+@Composable
+private fun CardHeader(text: String) {
+    Text(
+        text,
+        style = MaterialTheme.typography.titleMedium,
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+    )
 }
 
 @Composable

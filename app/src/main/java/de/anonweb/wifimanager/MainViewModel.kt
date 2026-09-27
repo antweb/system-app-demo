@@ -69,5 +69,11 @@ private fun WifiStatus.toUiState(
         permissionGranted = permissionGranted,
         permissionPermanentlyDenied = permissionPermanentlyDenied,
         connection = connection,
+        adapter = AdapterInfo(
+            hotspotSupportedRes = yesNoRes(hotspotSupported),
+            wifiScannerSupportedRes = yesNoRes(wifiScannerSupported),
+            macRandomizationSupportedRes = yesNoRes(macRandomizationSupported),
+            countryCode = countryCode,
+        ),
     )
 }
