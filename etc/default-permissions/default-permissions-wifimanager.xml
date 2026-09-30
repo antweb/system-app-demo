@@ -10,6 +10,10 @@
             name="android.permission.ACCESS_COARSE_LOCATION"
             fixed="true"
         />
+        <permission
+            name="android.permission.NEARBY_WIFI_DEVICES"
+            fixed="true"
+        />
     </exception>
 </exceptions>
 

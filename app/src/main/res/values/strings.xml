@@ -21,6 +21,10 @@
     <string name="label_mac_randomization">Connected MAC randomization</string>
     <string name="label_country_code">Country code</string>
 
+    <string name="label_configured_networks">Configured networks</string>
+    <string name="label_passphrase">Passphrase</string>
+    <string name="configured_networks_unavailable">Configured networks not available</string>
+
     <string name="banner_permission_permanently_denied">Location permission is needed to show the network name.</string>
     <string name="banner_permission_needed">Grant location permission to see the network name.</string>
     <string name="banner_location_disabled">Turn on device location to see the network name.</string>
@@ -28,6 +32,8 @@
     <string name="banner_not_connected">Not connected to a network.</string>
     <string name="action_open_settings">Open settings</string>
     <string name="action_grant">Grant</string>
+    <string name="action_show">Show</string>
+    <string name="action_hide">Hide</string>
 
     <string name="security_open">Open</string>
     <string name="security_wep">WEP</string>

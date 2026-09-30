@@ -11,6 +11,7 @@ data class MainUiState(
     val permissionPermanentlyDenied: Boolean = false,
     val connection: ConnectionDetails? = null,
     val adapter: AdapterInfo? = null,
+    val configuredNetworks: List<ConfiguredNetwork> = emptyList(),
 )
 
 data class ConnectionDetails(
@@ -28,4 +29,10 @@ data class AdapterInfo(
     @StringRes val wifiScannerSupportedRes: Int,
     @StringRes val macRandomizationSupportedRes: Int,
     val countryCode: String?,
+)
+
+data class ConfiguredNetwork(
+    val ssid: String?,
+    @StringRes val securityRes: Int,
+    val passphrase: String?,
 )

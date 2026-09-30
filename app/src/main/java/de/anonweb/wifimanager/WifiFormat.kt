@@ -1,5 +1,6 @@
 package de.anonweb.wifimanager
 
+import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import androidx.annotation.StringRes
@@ -48,3 +49,25 @@ fun signalQualityLabelRes(level: Int, maxLevel: Int): Int {
 
 @StringRes
 fun yesNoRes(value: Boolean): Int = if (value) R.string.value_yes else R.string.value_no
+
+@StringRes
+fun configuredNetworkSecurityLabelRes(config: WifiConfiguration): Int {
+    val authType = try {
+        config.getAuthType()
+    } catch (e: IllegalStateException) {
+        return R.string.unknown
+    }
+    return when (authType) {
+        WifiConfiguration.KeyMgmt.NONE ->
+            if (config.wepKeys?.any { it != null } == true) R.string.security_wep else R.string.security_open
+        WifiConfiguration.KeyMgmt.WPA_PSK, WifiConfiguration.KeyMgmt.WPA2_PSK -> R.string.security_wpa_psk
+        WifiConfiguration.KeyMgmt.WPA_EAP, WifiConfiguration.KeyMgmt.IEEE8021X -> R.string.security_wpa_eap
+        WifiConfiguration.KeyMgmt.SAE -> R.string.security_wpa3_sae
+        WifiConfiguration.KeyMgmt.OWE -> R.string.security_owe
+        WifiConfiguration.KeyMgmt.SUITE_B_192 -> R.string.security_wpa3_enterprise_192
+        WifiConfiguration.KeyMgmt.WAPI_PSK -> R.string.security_wapi_psk
+        WifiConfiguration.KeyMgmt.WAPI_CERT -> R.string.security_wapi_cert
+        WifiConfiguration.KeyMgmt.DPP -> R.string.security_dpp
+        else -> R.string.unknown
+    }
+}

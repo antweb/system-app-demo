@@ -11,6 +11,7 @@ import android.net.ConnectivityManager.NetworkCallback.FLAG_INCLUDE_LOCATION_INF
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
+import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import android.util.Log
@@ -31,6 +32,7 @@ data class WifiStatus(
     val wifiScannerSupported: Boolean,
     val macRandomizationSupported: Boolean,
     val countryCode: String?,
+    val configuredNetworks: List<WifiConfiguration>,
 )
 
 class WifiStatusSource(private val context: Context) {
@@ -81,6 +83,13 @@ class WifiStatusSource(private val context: Context) {
             null
         }
 
+        val configuredNetworks = try {
+            wifiManager.privilegedConfiguredNetworks
+        } catch (e: Throwable) {
+            Log.e("WifiStatusSource", "Failed to call getPrivilegedConfiguredNetworks: ${e.message}")
+            emptyList()
+        }
+
         val snapshot = Snapshot()
 
         fun push() {
@@ -96,7 +105,8 @@ class WifiStatusSource(private val context: Context) {
                     hotspotSupported = hotspotSupported,
                     wifiScannerSupported = wifiScannerSupported,
                     macRandomizationSupported = macRandomizationSupported,
-                    countryCode = countryCode
+                    countryCode = countryCode,
+                    configuredNetworks = configuredNetworks,
                 )
             )
         }

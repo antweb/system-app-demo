@@ -75,5 +75,12 @@ private fun WifiStatus.toUiState(
             macRandomizationSupportedRes = yesNoRes(macRandomizationSupported),
             countryCode = countryCode,
         ),
+        configuredNetworks = configuredNetworks.map { config ->
+            ConfiguredNetwork(
+                ssid = unquoteSsid(config.SSID),
+                securityRes = configuredNetworkSecurityLabelRes(config),
+                passphrase = config.preSharedKey?.removeSurrounding("\"")?.ifEmpty { null },
+            )
+        },
     )
 }

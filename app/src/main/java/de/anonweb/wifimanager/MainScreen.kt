@@ -9,6 +9,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,10 +20,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -143,6 +149,33 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
                     }
                 }
             }
+
+            val configuredNetworks = state.configuredNetworks
+            item {
+                Card(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+                    Column {
+                        CardHeader(stringResource(R.string.label_configured_networks))
+                        if (configuredNetworks.isEmpty()) {
+                            Text(
+                                stringResource(R.string.configured_networks_unavailable),
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                            )
+                        } else {
+                            for (network in configuredNetworks) {
+                                InfoRow(
+                                    stringResource(R.string.label_ssid),
+                                    network.ssid ?: stringResource(R.string.unknown),
+                                )
+                                InfoRow(
+                                    stringResource(R.string.label_security),
+                                    stringResource(network.securityRes),
+                                )
+                                PassphraseRow(network.passphrase)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -186,7 +219,7 @@ private fun Banner(
 private fun CardHeader(text: String) {
     Text(
         text,
-        style = MaterialTheme.typography.titleMedium,
+        style = MaterialTheme.typography.titleLarge,
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
     )
 }
@@ -197,5 +230,23 @@ private fun InfoRow(label: String, value: String?) {
     Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)) {
         Text(label, fontWeight = FontWeight.Bold)
         Text(value)
+    }
+}
+
+@Composable
+private fun PassphraseRow(passphrase: String?) {
+    if (passphrase == null) return
+    var revealed by remember { mutableStateOf(false) }
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(stringResource(R.string.label_passphrase), fontWeight = FontWeight.Bold)
+            Text(if (revealed) passphrase else "•".repeat(8))
+        }
+        TextButton(onClick = { revealed = !revealed }) {
+            Text(stringResource(if (revealed) R.string.action_hide else R.string.action_show))
+        }
     }
 }
