@@ -17,7 +17,7 @@
 
     <string name="label_adapter">Adapter</string>
     <string name="label_hotspot_supported">Portable hotspot</string>
-    <string name="label_wifi_scanner">Wi-Fi scanner</string>
+    <string name="label_wifi_scanner">WiFiScanner APIs</string>
     <string name="label_mac_randomization">Connected MAC randomization</string>
     <string name="label_country_code">Country code</string>
 
