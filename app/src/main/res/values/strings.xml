@@ -6,6 +6,7 @@
     <string name="label_quality">Quality</string>
     <string name="label_signal_strength">Signal strength</string>
     <string name="value_dbm">%1$d dBm</string>
+    <string name="label_visible_networks">Visible networks</string>
     <string name="label_ssid">SSID</string>
     <string name="label_bssid">BSSID</string>
     <string name="label_security">Security</string>

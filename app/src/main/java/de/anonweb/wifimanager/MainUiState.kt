@@ -18,5 +18,6 @@ data class ConnectionDetails(
     val hiddenSsid: Boolean,
     @StringRes val securityRes: Int,
     val rssiDbm: Int,
+    val visibleNetworkCount: Int?,
     @StringRes val signalQualityRes: Int,
 )

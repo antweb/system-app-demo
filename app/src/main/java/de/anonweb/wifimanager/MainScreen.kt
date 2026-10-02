@@ -104,6 +104,10 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
                                 stringResource(R.string.label_signal_strength),
                                 stringResource(R.string.value_dbm, connection.rssiDbm),
                             )
+                            InfoRow(
+                                stringResource(R.string.label_visible_networks),
+                                connection.visibleNetworkCount?.toString(),
+                            )
 
                             InfoRow(stringResource(R.string.label_ssid), connection.ssid)
                             InfoRow(stringResource(R.string.label_bssid), connection.bssid)

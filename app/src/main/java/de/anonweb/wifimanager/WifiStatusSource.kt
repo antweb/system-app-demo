@@ -13,6 +13,7 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
+import android.util.Log
 import androidx.annotation.RequiresPermission
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -24,10 +25,13 @@ data class WifiStatus(
     val locationEnabled: Boolean,
     val wifiInfo: WifiInfo?,
     val signalLevel: Int,
+    val visibleNetworkCount: Int?,
     val maxSignalLevel: Int,
 )
 
 class WifiStatusSource(private val context: Context) {
+
+    private val TAG = "WifiStatusSource"
 
     @RequiresPermission(
         allOf = [Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE]
@@ -41,6 +45,13 @@ class WifiStatusSource(private val context: Context) {
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             .build()
 
+        val visibleNetworkCount = try {
+            wifiManager.scanResults.size
+        } catch (e: Throwable) {
+            Log.e(TAG, "Failed to call getScanResults: ${e.message}")
+            null
+        }
+
         val snapshot = Snapshot()
 
         fun push() {
@@ -51,6 +62,7 @@ class WifiStatusSource(private val context: Context) {
                     locationEnabled = locationManager.isLocationEnabled,
                     wifiInfo = info,
                     signalLevel = info?.let { wifiManager.calculateSignalLevel(it.rssi) } ?: 0,
+                    visibleNetworkCount = visibleNetworkCount,
                     maxSignalLevel = wifiManager.maxSignalLevel,
                 )
             )

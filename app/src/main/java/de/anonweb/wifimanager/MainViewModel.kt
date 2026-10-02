@@ -54,6 +54,7 @@ private fun WifiStatus.toUiState(
             hiddenSsid = info.hiddenSSID,
             securityRes = securityLabelRes(info.currentSecurityType),
             rssiDbm = info.rssi,
+            visibleNetworkCount = visibleNetworkCount,
             signalQualityRes = signalQualityLabelRes(signalLevel, maxSignalLevel),
         )
     } else {
