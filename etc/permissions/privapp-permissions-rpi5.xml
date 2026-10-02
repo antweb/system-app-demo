@@ -1,0 +1,5 @@
+<permissions>
+    <privapp-permissions package="de.anonweb.wifimanager">
+        <permission name="android.permission.READ_WIFI_CREDENTIAL"/>
+    </privapp-permissions>
+</permissions>
